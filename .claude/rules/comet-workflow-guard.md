@@ -1,0 +1,59 @@
+# Comet Current-Change Phase Rule
+
+This Rule determines current ownership and write constraints for Native, Classic, and SDK Skill applications. A project may enable multiple workflows, but one request must be owned by exactly one workflow/change or application Run. Never apply rules from different workflows at the same time.
+
+## Resolve the current request first
+
+When the current selection's `workflow` is `application`, use its `applicationId` and original Run ID to resume the corresponding SDK Skill application. Read the fixed package selected by the platform Skill entry and its application Rule. The same SDK Run owns progress, approval, write scope, and recovery; do not apply the Native/Classic phase table below. Confirm the current proposal and claim the Action before performing work within its declared scope. Formal Runtime and installation entry points maintain SDK state, fixed packages, and host configuration. Check the platform Rule, Hook configuration, actual Hook events, and business acceptance separately; follow the platform's activation or trust requirements.
+
+Read ownership at task start, after context recovery, or when switching repositories, branches, or changes. Reuse the current response during ordinary progression:
+
+1. Read `.comet/config.yaml`: `workflows` lists enabled capabilities, while `default_workflow` only selects the default `/comet` entry.
+2. Read `.comet/current-change.json`: its `workflow + change` identifies the current request owner.
+   When the selection remains valid and still points to the same workflow/change, reuse the current continuation response; these two lightweight reads do not run `resume-probe`, query `status`, or enumerate every change.
+3. Only when the selection is missing or invalid, its target change is missing or archived, or ownership is unclear, enumerate active Comet changes across the project again: zero means there is no current Comet request, exactly one permits read-only inference, and multiple candidates require an explicit user selection.
+4. Stop when the selection file is unreadable, its format or schema is invalid, its workflow is disabled, its branch is invalid, or change state cannot be read safely. Never fall back to `default_workflow` to guess ownership.
+
+A legacy Classic project without the current project schema uses only the Classic legacy fallback; that fallback never enables Native.
+
+## Apply only the selected phase model
+
+| Workflow | Ordinary implementation writes blocked | Ordinary implementation writes allowed |
+| -------- | -------------------------------------- | -------------------------------------- |
+| Native   | Shape, Verify, Archive                 | Build                                  |
+| Classic  | Open, Design, Verify, Archive          | Build                                  |
+
+- Native Verify remains read-only: Runtime executes missing or invalidated checks, and the reviewer covers every acceptance item. For new Runs, the Agent chooses the current session or a separate read-only session according to the task. Preserve requireIndependentReview when the user explicitly requires independent review, and use a different actual session. Existing Runs follow their current sessionRequirements. When it exposes an implementation problem, record the failed result and use the Native Runtime to return to Build before modifying the implementation. Ordinary dot-prefixed project files do not become cross-phase allowlisted paths merely because of their names.
+  The Native table governs implementation or repair performed by the reviewer. Ordinary user edits follow the current native.document_writes policy. When edits are retained, the current Agent judges their actual impact before advancing: reconfirm changed requirements, revise changed implementations, and refresh invalidated checks. With the revert policy, follow the Hook denial and recovery instructions.
+
+- Classic Verify writes only the verification report and state. It does not modify tasks or ordinary project implementation; run `verify-fail` to return to Build before updating task state or repairing implementation.
+- Ordinary write permission in Native Build does not override unresolved `[blocking]` user decisions in the brief. When a new decision appears, follow the Native Skill to pause implementation and reconfirm.
+- When Native state contains `children`, ordinary Build write permission belongs only to child worktrees listed in Runtime `readyChildren`; do not run a Supervisor Change Builder or implement child work in the parent worktree.
+- A Classic full workflow allows ordinary implementation writes in Build only after state records a Design Doc and its implementation plan exists and is ready. Hotfix and tweak continue to follow their preset phase protocols.
+- For Native ownership, resume `/comet-native`. New ordinary SDK tasks use the returned `native next --session` business entry, which submits results and advances authorized internal steps. The local SDK Run is authoritative, with Portable checkpoints at recovery boundaries. Existing Runs and Supervisor tasks use their returned protocols.
+- For Classic ownership, resume `/comet-classic` and continue from Classic state, decision points, and phase rules.
+- Never convert a Native change into a Classic change or vice versa. Switching workflows means selecting a separate change.
+
+## Hook constraint
+
+Each platform must install exactly one Comet Hook Router. It routes Native, Classic, or SDK applications according to the current selection, invoking at most one Guard per write event. Do not install or run multiple sets of Comet Hooks.
+
+The Hook evaluates multi-file and patch targets atomically. Unattributable events and targets that are entirely outside the project remain neutral. Once a write is attributed to this project, it fails closed when the current phase blocks ordinary project writes, multiple ownership candidates exist, or the selection, state, or target scope cannot be read safely. Never bypass the Hook; follow its denial message to resume the owning workflow, and select a current change only when ownership is ambiguous.
+
+The phase table governs only ordinary implementation writes. Before phase evaluation, the Classic Hook always allows `.comet` configuration, the `.superpowers` workspace, neutral documents, and `hook.allow_paths`. Neutral documents are Markdown/text files and LICENSE-style files at the repository root or under `docs/`, `doc/`, `documentation/`, and `.github/`, excluding OpenSpec and Superpowers workflow artifacts. These are explicit control or configuration allowlists: they do not widen phase permissions or permit task updates during Verify. Setting `classic.document_evidence: strict` in `.comet/config.yaml` narrows the allowlist back to root Markdown only.
+
+Native formal artifacts belong to the configured `<artifact-root>/comet/changes/<change>/`. Machine-local Runtime data is stored in the user Comet data directory, isolated by checkout and Git worktree; use the `runtimeDir` returned by the command. The project-local `.comet/runtime/native/` is a legacy layout and must not be used to infer the current Run location. A filename, a `comet/changes/<name>` fragment, or the mere presence of an active change is not enough to attribute another directory to Comet; ordinary same-named Markdown, non-Comet work, and explicitly configured user Hook output remain neutral. Register a Native change through the CLI first, then follow the complete command or absolute target in a denial and retry. Never edit Runtime files or migrate leftovers by hand.
+
+A diagnostic action in a denial only inspects state; it does not replace a recovery command. When Runtime returns a recovery command, run it in the specified working directory and retry the original operation. When `continuation.commandArgs` provides the next action, execute those arguments directly. If Native Archive fails, resolve the actual blockers and execute the command returned by the current response. SDK recovery continues the original Run and accepted results. Compat uses `--confirmed` or finish options only when its returned command includes them, for example the returned `comet native archive <change> --confirmed`. The SDK follows its own returned command.
+
+## Personal memory and project knowledge context
+
+Only perform the following when `.comet/config.yaml` exists and the user is using Comet. An ordinary repository without an enabled Comet project remains neutral: do not create files and do not change tool-call results.
+
+- Reuse context already supplied through `contextDelivery`. When delivery is absent and the current task needs context, run `comet task <project-root> --task "<task>" --phase "<phase>" --session "<stable task id>" --json` for personal memory and project knowledge context. Use only returned `text`; summaries in the Context Manifest (`manifest` / `<context_manifest>`) are not complete rules. Use the same task selectors with `--expand-context "<id>"` when full content, sources, or verification is needed. Re-select with the same `--session` after path, operation, or phase changes; unchanged content is not redelivered.
+- Add every `<verification command="...">` from `<active_policies>` to the current Verify checks and record the real result. A command that did not pass must not make its policy enforced.
+- Use `comet memory remember` when the user explicitly asks to retain a long-term preference or project convention, so explicit content applies immediately. Use `comet memory observe` only for an implicit but reusable stable collaboration habit. Never save task summaries, implementation progress, command output, or test results as personal memory.
+- Before task completion, record every verified and reusable project lesson with `comet knowledge remember <project-root> --title "<concise title>" --text "<symptom, approach, verification>" --type <fact|decision|pattern|procedure|constraint|failure-resolution> --json`. The same title updates the existing entry instead of creating a duplicate; skip the write when nothing is reusable, and never save task summaries, one-off command output, or unverified guesses. The project memory index is injected with task context; expand a single entry with the same task arguments plus `--expand-context "project-memory:<slug>"`.
+- For Native, submit learning only for an explicit user correction, memory request, or verified reusable observation. When submitting through `comet task --complete`, fill `--learning-check submitted|no-observation|not-run` honestly. Ordinary completion skips empty learning checks, empty queue queries, and unrelated pending reviews. Classic follows its own Skill learning protocol. Use JSON `learning.result` and `status.learning.lastCheck` as the diagnostic evidence; a first observation is only a `trial` candidate and one successful task must not be treated as a durable preference.
+- After actually using an item and learning its result, take `applications[].applicationId` from JSON or `application_id` from Hook context and run `comet task <project-root> --task "<task>" --application "<application-id>" --outcome used-successfully|ignored|overridden|corrected|contributed-to-failure --json`; never report success for an unused item. Follow workflow diagnostics to fix compiler, test, or linter failures.
+- If the task-context command is unavailable, the project is not initialized, or no snippet matches, remain neutral; a plugin failure must not be presented as a project-check failure.

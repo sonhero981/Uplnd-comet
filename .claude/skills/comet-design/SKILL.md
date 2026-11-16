@@ -1,0 +1,27 @@
+---
+name: comet-design
+description: 'Complete the Classic technical design and obtain user confirmation. Use when the user invokes /comet-design or Classic Runtime enters Design.'
+---
+
+# Comet Phase 2: Design
+
+On first entering a phase, handing off to a new Agent, or restoring context, read and follow [Task Context and Artifact Language](../comet-classic/reference/scripts.md#task-context-and-artifact-language). Prefer the current continuation or claimed Action's `contextRequest`; do not retrieve repeatedly during uninterrupted work in the same phase.
+
+After the entry returns layout, use `comet-classic/reference/classic-layout.md` to resolve each logical root. Reuse this protocol if it is already in context. Route all OpenSpec CLI calls through the adapter and use the bound `<classic-*>` roots for file paths; do not run an extra root show first.
+
+When an edit needs an actual-impact judgement or a continuation points to a content judgement, you must read and follow [edit continuation](../comet/reference/edit-review.md). The current Agent merges the handling of changes, keeps the original Run, valid approvals, and checks, and adds only evidence for what is affected.
+
+## SDK Run path
+
+On first entering the current SDK phase, handing off to a new Agent, or restoring context, read [phase entry and recovery](../comet-classic/reference/sdk-methods.md#phase-entry-and-recovery) and the current phase's section in that reference. Reuse them when already available and still valid in this session. Continue with the phase below; recovery routes based on `nextAction.kind` apply only to older responses without a continuation mode.
+
+Reuse the latest valid response for the same change, workspace, and Run: `agent.continuation`, `data.nextAction`, phase, revision, and path summaries. Run `comet state next <change-name> --json` only for cold recovery, workspace or external state changes, a stale response version, or missing information needed for the current step; loading the next Skill is not a reason to query again. Runtime still validates current versions and evidence on writes; cached context cannot bypass checks or approval. For `data.runtimeFormat: sdk`, use this section for state changes; use the Design section of SDK execution methods for exploration, questions, and formal document requirements. `data.phase` must be `design`. If Build has begun, return to its entry. For `nextAction.kind: reconcile`, run `comet state check <change-name> design --recover --json` and establish the claimed Action's original outcome before proposing or redispatching.
+
+1. At `full.design.handoff`, reuse layout and references from the current response; run `comet state check <change-name> design --json` only when they are missing. Read the current OpenSpec proposal, tasks, delta specs, and relevant existing design.md. Develop candidate solutions under the Design section of SDK execution methods and keep `brainstorm-summary.md` current, marking unapproved content as a candidate. There is no SDK handoff packet yet; do not call legacy `comet handoff ... --write` or substitute a handwritten summary.
+2. For a needed Spec Patch, explain it and obtain explicit agreement under the Design confirmation rules in SDK execution methods before editing the delta spec. Reclarify material scope changes. When sources are stable, run `comet state propose-design <change-name> --proposal "<candidate-summary>"`; the summary must cover the proposed design, tradeoffs, risks, and Spec Patch. Save `data.wait.proposalHash` as `<proposalHash>`. This creates the traceable handoff. Use `data.configuration.handoffContext` from the proposal response, querying `comet state next <change-name> --json` only if it is missing, and verify the Markdown packet matches the candidate and source files. Reuse an existing pending Wait on recovery.
+3. Check current design against existing authority under `comet-classic/reference/decision-point.md`. Record the basis and continue when authority covers it. When a new decision is needed, explain the effects under [reconfirmation after requirement changes](../comet-classic/reference/decision-point.md#reconfirmation-after-requirement-changes), present the current proposal, and wait for the answer. Use the current proposal hash with `comet state decide-design <change-name> --proposal-hash <proposalHash> --choice <approved|rejected>`: choose `approved` when valid approval or delegated authority covers the proposal; choose `rejected` and propose again when the user requests changes; retain the Wait when deferred. If source changes invalidate an old hash, inspect the differences and record the decision against the current proposal rather than reusing an expired hash.
+4. After approval, write the single Design Doc with required frontmatter. If recovery already points to `full.design.document`, continue here. Run directly `comet state complete-design <change-name> --design-doc <design-doc-ref> --approval-hash <proposalHash>`. On failure preserve the Run and address the specific cause. Runtime synchronizes the actual state file; the Agent does not manually advance its phase. Route to the Build Action and continuation from the same successful response; run `comet state next <change-name> --json` only if continuation information is missing.
+
+## Compat path
+
+The remaining original Runtime steps apply only to `runtimeFormat: compat`. Read [Compat operations](reference/compat.md) and continue its current phase. SDK does not load that reference.

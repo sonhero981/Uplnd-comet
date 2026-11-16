@@ -1,0 +1,40 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/scripts/hooks/comet-archive-specs.mjs\" pre",
+            "statusMessage": "Flattening specs for comet archive"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/scripts/hooks/comet-archive-specs.mjs\" post",
+            "statusMessage": "Nesting specs after comet archive"
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/scripts/hooks/comet-archive-specs.mjs\" post",
+            "statusMessage": "Nesting specs after comet archive"
+          }
+        ]
+      }
+    ]
+  }
+}

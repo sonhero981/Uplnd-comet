@@ -1,0 +1,34 @@
+# Product registry — maps openspec/specs/ to the product → module → capability tree.
+#
+# Layout:  openspec/specs/<product>/<module>/<capability>/spec.md
+# Changes: openspec/changes/<module>-<repo>-<name>/   e.g. group-lms-be-manager-relations
+#          delta specs stay flat: specs/<capability>/spec.md — capability names must be unique across this file
+#          archive: scripts/openspec-specs.mjs flatten <change> → /comet-archive → nest → check
+#
+# A repo is not a folder: one module can be implemented by several repos, so each capability lists the repos
+# that implement it (lms-package, lms-be, ops-fe, lms-fe).
+#
+# Format is read by scripts/openspec-specs.mjs, which is line-based, not a general YAML parser. Keep it exactly:
+#   2 spaces  <product>:            (with code / name / modules: below it)
+#   6 spaces  <module>:             (with code / name / capabilities: below it)
+#   10 spaces <capability>: { repos: [..], features: [..] }   (one line each)
+#
+# Register a new capability here BEFORE archiving the change that introduces it.
+#
+# Example module (delete when the first real one is added):
+#
+#   uplnd:
+#     code: "001"
+#     name: UpLnD
+#     modules:
+#       group:
+#         code: UPLND001
+#         name: Group
+#         capabilities:
+#           group-tree: { repos: [lms-be, ops-fe], features: [F001] }
+
+products:
+  uplnd:
+    code: "001"
+    name: UpLnD
+    modules: {}
