@@ -1,7 +1,7 @@
 # Product registry — maps openspec/specs/ to the product → module → capability tree.
 #
 # Layout:  openspec/specs/<product>/<module>/<capability>/spec.md
-# Changes: openspec/changes/<module>-<repo>-<name>/   e.g. user-account-lms-be-manager-relations
+# Changes: openspec/changes/<module>-<name>/   e.g. user-account-manager-relations (repos are listed inside the change, not in its name)
 #          delta specs: changes/<change>/specs/<product>/<module>/<capability>/spec.md (same nested path as the main spec)
 #
 # A repo is not a folder: one module can be implemented by several repos, so each capability lists the repos

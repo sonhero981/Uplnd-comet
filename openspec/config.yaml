@@ -1,8 +1,15 @@
 schema: spec-driven
 
 context: |
+  # Artifact language
+  # Write the prose of proposal, design, tasks and spec in Vietnamese; keep technical terms, code identifiers, file paths and Jira keys in English.
+  # Keep OpenSpec structure in English exactly, because tools parse it: section headings from the templates (## Why, ## What Changes, ## Impact …),
+  # ## ADDED/MODIFIED/REMOVED Requirements, ### Requirement:, #### Scenario:, and the keywords SHALL / MUST / WHEN / THEN.
+  # This deliberately overrides Comet's default artifact language `en` (.comet/config.yaml): Comet 0.5.2 accepts only en or zh-CN for classic.language.
+
   # Naming convention
-  # changes/ : <module>-<repo>-<change-name>/   (comet flat scan — no nested change dirs), e.g. user-account-lms-be-manager-relations
+  # changes/ : <module>-<change-name>/   (comet flat scan — no nested change dirs), e.g. user-account-manager-relations
+  #            The name NEVER contains a repo: the repos of a change are the [<repo>] groups inside its tasks.md.
   # specs/   : <product>/<module>/<capability>/spec.md (reference list: openspec/products.yaml)
   # delta specs of a change use the same nested path: changes/<change>/specs/<product>/<module>/<capability>/spec.md
 
@@ -14,3 +21,7 @@ context: |
   lms-fe      → ../lms-fe/apps/            # Next.js 14 (lms-pro, lms-test, lms-zoom)
 
   # Build order for a change that touches several repos: lms-package → lms-be → ops-fe → lms-fe
+
+rules:
+  tasks:
+    - 'Group tasks by repo: every group heading is `## N. [<repo>] <title>` with the repo id exactly one of lms-package, lms-be, ops-fe, lms-fe. One repo per group (a repo may have several groups), groups in build order lms-package → lms-be → ops-fe → lms-fe. scripts/changes.mjs reads the [<repo>] tag to show per-repo progress.'
