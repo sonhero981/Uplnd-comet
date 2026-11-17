@@ -2,10 +2,9 @@ schema: spec-driven
 
 context: |
   # Naming convention
-  # changes/ : <module>-<repo>-<change-name>/   (comet flat scan — no nested dirs), e.g. group-lms-be-manager-relations
-  # specs/   : <product>/<module>/<capability>/spec.md (registry: openspec/products.yaml)
-  # delta specs in a change stay flat: specs/<capability>/spec.md (openspec archive skips nested deltas)
-  # archive: .claude/settings.json hooks run scripts/openspec-specs.mjs flatten/nest/check around the comet archive call
+  # changes/ : <module>-<repo>-<change-name>/   (comet flat scan — no nested change dirs), e.g. user-account-lms-be-manager-relations
+  # specs/   : <product>/<module>/<capability>/spec.md (reference list: openspec/products.yaml)
+  # delta specs of a change use the same nested path: changes/<change>/specs/<product>/<module>/<capability>/spec.md
 
   # Repo → code path mapping (all repos are siblings of this one)
   # When exploring or designing, navigate to the relevant repo and read its CLAUDE.md first.

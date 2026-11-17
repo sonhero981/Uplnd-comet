@@ -1,34 +1,70 @@
 # Product registry — maps openspec/specs/ to the product → module → capability tree.
 #
 # Layout:  openspec/specs/<product>/<module>/<capability>/spec.md
-# Changes: openspec/changes/<module>-<repo>-<name>/   e.g. group-lms-be-manager-relations
-#          delta specs stay flat: specs/<capability>/spec.md — capability names must be unique across this file
-#          archive: scripts/openspec-specs.mjs flatten <change> → /comet-archive → nest → check
+# Changes: openspec/changes/<module>-<repo>-<name>/   e.g. user-account-lms-be-manager-relations
+#          delta specs: changes/<change>/specs/<product>/<module>/<capability>/spec.md (same nested path as the main spec)
 #
 # A repo is not a folder: one module can be implemented by several repos, so each capability lists the repos
 # that implement it (lms-package, lms-be, ops-fe, lms-fe).
 #
-# Format is read by scripts/openspec-specs.mjs, which is line-based, not a general YAML parser. Keep it exactly:
-#   2 spaces  <product>:            (with code / name / modules: below it)
-#   6 spaces  <module>:             (with code / name / capabilities: below it)
-#   10 spaces <capability>: { repos: [..], features: [..] }   (one line each)
+# This file is a reference list only: no script or hook reads it. Add a capability here when the change that
+# introduces it is archived, so the list stays in step with openspec/specs/.
 #
-# Register a new capability here BEFORE archiving the change that introduces it.
+# Modules below are the 11 business modules of the UpLnD domain KB (upbase-specs/domain/domain.md, files 01–11);
+# `code` is that KB number. They are NOT Lark Base module codes — replace `code` if a Base registry is adopted.
+# Which module a feature (e.g. LMS-F001 Gamification, LMS-F002 Group) belongs to is not decided yet: pick the
+# module by what the user sees when the first change of that feature is opened, then add its capabilities here.
 #
-# Example module (delete when the first real one is added):
-#
-#   uplnd:
-#     code: "001"
-#     name: UpLnD
-#     modules:
-#       group:
-#         code: UPLND001
-#         name: Group
-#         capabilities:
-#           group-tree: { repos: [lms-be, ops-fe], features: [F001] }
+# Capability example (delete when the first real one is added):
+#   capabilities:
+#     group-tree: { repos: [lms-be, ops-fe], features: [LMS-F002] }
 
 products:
   uplnd:
     code: "001"
     name: UpLnD
-    modules: {}
+    modules:
+      course:
+        code: "01"
+        name: Course
+        capabilities: {}
+      question-bank:
+        code: "02"
+        name: Question Bank
+        capabilities: {}
+      assessment:
+        code: "03"
+        name: Assessment
+        capabilities: {}
+      class:
+        code: "04"
+        name: Class
+        capabilities: {}
+      grading:
+        code: "05"
+        name: Grading
+        capabilities: {}
+      user-account:
+        code: "06"
+        name: User
+        capabilities: {}
+      learning-experience:
+        code: "07"
+        name: Learning Experience
+        capabilities: {}
+      certificate:
+        code: "08"
+        name: Certificate
+        capabilities: {}
+      notification-email:
+        code: "09"
+        name: Notification
+        capabilities: {}
+      storyline:
+        code: "10"
+        name: Storyline
+        capabilities: {}
+      dashboard-sis:
+        code: "11"
+        name: Dashboard and SIS
+        capabilities: {}

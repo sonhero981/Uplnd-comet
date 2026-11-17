@@ -23,23 +23,19 @@ open → design → build → verify → archive
 
 ```
 openspec/
-  products.yaml                         # product → module → capability → repos registry (read by scripts/openspec-specs.mjs)
+  products.yaml                         # product → module → capability → repos reference list (documentation only, no tool reads it)
   changes/<module>-<repo>-<name>/       # active changes; archived copies get a YYYY-MM-DD- prefix under changes/archive/
     .comet.yaml                         # Comet phase tracker
-    specs/<capability>/spec.md          # delta specs stay FLAT — openspec archive silently skips nested deltas
-  specs/<product>/<module>/<capability>/spec.md   # archived main specs, grouped by product, not by repo
+    specs/<product>/<module>/<capability>/spec.md   # delta specs mirror the main-spec path
+  specs/<product>/<module>/<capability>/spec.md     # archived main specs, grouped by product, not by repo
 docs/superpowers/{specs,plans,reports}/ # Design Docs, build plans, verification reports
-scripts/                                # openspec-specs.mjs (flatten/nest/check) and hooks/
 ```
 
 Naming: a change is `<module>-<repo>-<name>` — module slug plus the **primary** repo; when a change touches several repos, name it after the primary one and list the rest in `proposal.md`.
 
-**Archive and specs.** `.claude/settings.json` hooks wrap every `comet archive <change>` Bash call (`scripts/hooks/comet-archive-specs.mjs`): before it, `flatten <change>` moves each main spec the change touches to `openspec/specs/<capability>/` and blocks the archive on a nested or unregistered delta; after it (success or failure), `nest` moves flat specs back to `<product>/<module>/<capability>/` and `check` verifies the registry. So `/comet-archive` needs only:
+**Specs and archive.** The delta spec of a change lives at the same nested path as its main spec (`specs/uplnd/<module>/<capability>/spec.md`), so `openspec archive` merges it into `openspec/specs/<same path>`. Unlike `product-ups`, this repo has no flatten/nest hook: OpenSpec 1.14.1 was tested to create and modify nested specs directly (`openspec archive` and `openspec validate --specs`). Not yet exercised through `comet archive`; check `openspec/specs/` after the first real archive. If a nested delta is ever skipped ("No deltas found"), reintroduce the flatten/nest hook from commit `451dd75` (`scripts/openspec-specs.mjs`, `scripts/hooks/comet-archive-specs.mjs`, `.claude/settings.json`).
 
-1. Before archive, register any new capability in `openspec/products.yaml` (with `repos`, `features`). The file is read line by line — keep the indentation documented at its top.
-2. After archive, stage the moved spec paths with the archive commit.
-
-Outside Claude Code (no hooks), run `node scripts/openspec-specs.mjs flatten <change>` → `comet archive <change>` → `nest` → `check` by hand.
+On archive, add any new capability to `openspec/products.yaml` and stage the new spec paths with the archive commit.
 
 ---
 
@@ -64,8 +60,8 @@ Per `UP_BASE/HUONG-DAN-VAN-HANH.md`, `lms-be` is not on Comet yet (it keeps the 
 
 ## Open Items
 
-- `comet.yaml` (guard `build_command`) is not set yet. This repo has no build target, so guard auto-detection finds nothing; set `build_command` to the build of the primary sibling repo you work on (see how `product-ups/comet.yaml` does it) before the first `comet guard <change> build`.
-- `openspec/products.yaml` has no modules yet — add the first module and capabilities with the first change.
+- **Build command is per change, not global.** Comet 0.5.2 rejects `build_command` in `.comet/config.yaml` (removed) and does not read a root `comet.yaml`. This repo has no build target, so guard auto-detection finds nothing: in `/comet-build` pass the build of the repo the change edits explicitly, e.g. `comet check run <change> build --local -- pnpm --dir ../ops-fe build:ops-fe` then `comet guard <change> build --apply`. Commands per repo: `ops-fe` `pnpm --dir ../ops-fe build:ops-fe` · `lms-fe` `pnpm --dir ../lms-fe build` · `lms-package` `pnpm --dir ../lms-package build` · `lms-be` has no `build` script (use `yarn --cwd ../lms-be test` or the Nx target the change needs). Several repos in one change: wrap the commands in one `node` script that fails if any fails, because guard takes a single command (shell `&&` is rejected).
+- `openspec/products.yaml` lists the 11 UpLnD domain-KB modules with no capabilities yet; add each capability with the change that introduces it. Module codes are KB numbers, not Lark Base codes.
 
 <comet-ambient-resume>
 <!-- Managed by Comet. Edits inside this block may be replaced by comet init/update. -->
