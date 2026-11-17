@@ -15,6 +15,7 @@ open → design → build → verify → archive
 - `auto_transition: false` (`.comet/config.yaml`): Comet does **not** start the next phase by itself — run each command yourself.
 - Phase guard: read `.comet.yaml` `phase` of the change before any operation. No implementation writes in `open`, `design`, `verify`, `archive`.
 - Settings: `artifact_layout: legacy` (OpenSpec at `openspec/`, Superpowers docs at `docs/superpowers/`), `memory.learning: false`.
+- **Artifact language is Vietnamese**, even though `classic.language` stays `en` (Comet 0.5.2 accepts only `en` or `zh-CN`; `vi` makes `comet doctor` fail). When a Comet skill says to use the configured artifact language, write `proposal.md`, `design.md`, `tasks.md` and spec prose in Vietnamese instead, keeping technical terms, code identifiers, paths and Jira keys in English. Never translate what tools parse: template section headings, `## ADDED/MODIFIED/REMOVED Requirements`, `### Requirement:`, `#### Scenario:`, `SHALL`/`MUST`, `WHEN`/`THEN`. Same rule is in `openspec/config.yaml` `context:`. Reply to the user in Vietnamese.
 - Setup on a new machine: `npm install -g @rpamis/comet`, then `comet init --yes --workflow classic --platform claude --scope project --skip-existing --codegraph skip --language en` and `comet doctor`. `.claude/settings.local.json` is generated per machine and is not committed. On Windows run `init` from a path whose drive letter is uppercase (`E:\...`): Comet 0.5.2 compares the hook path case-sensitively, so a lowercase `e:\...` makes `comet doctor` report "managed Hook missing".
 
 ---
