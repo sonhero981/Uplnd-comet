@@ -22,6 +22,18 @@ context: |
 
   # Build order for a change that touches several repos: lms-package → lms-be → ops-fe → lms-fe
 
+  # Code knowledge base
+  # docs/codekb/<repo>/ (architecture.md, code-structure.md, areas/*.md …) is the verified picture of each repo's code on origin/staging (origin/main for lms-package).
+  # Read it for every repo the change touches before exploring or designing; verify the lines you rely on in the code; cite them as repo:path:line.
+  # If `node scripts/codekb-status.mjs <repo>` is not CURRENT, treat that repo's codekb as a hint and say so. Refresh with /comet-codekb.
+  # Live code lookup: each repo has a CodeGraph index. Use it before grep/Read (codegraph_explore, codegraph_callers, or `codegraph callers <symbol> -p ../<repo>`),
+  # name symbols rather than topics, pass the repo path, and check lines on the branch being edited (the index reads the working tree, the codekb reads origin/<base>).
+
 rules:
+  proposal:
+    - 'When the change implements an approved PRD, put a line `PRD: <feature code>` right after the title, for example `PRD: LMS-F001` (several codes comma-separated). The key `PRD:` stays English and spelled exactly so, because scripts/prd-status.mjs and /comet-start read it. Omit the line for a hotfix or tweak that implements no PRD.'
+  design:
+    - 'When the PRD has a technical design in the PO repo (tech-design.md, fe-technical-design.md), start design.md with the line `Tech design: <path> @ <PO repo commit>` and point to it instead of copying it; record only the decisions that are specific to this change.'
+    - 'Ground the design in the code knowledge base: for each repo the change touches, read docs/codekb/<repo>/architecture.md, code-structure.md and the matching areas/*.md, reuse the components and constraints they record instead of rediscovering them, and cite them as repo:path:line. Name any codekb that is not CURRENT (node scripts/codekb-status.mjs) as an open risk.'
   tasks:
     - 'Group tasks by repo: every group heading is `## N. [<repo>] <title>` with the repo id exactly one of lms-package, lms-be, ops-fe, lms-fe. One repo per group (a repo may have several groups), groups in build order lms-package → lms-be → ops-fe → lms-fe. scripts/changes.mjs reads the [<repo>] tag to show per-repo progress.'

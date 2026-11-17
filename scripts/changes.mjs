@@ -8,6 +8,7 @@ import { execSync } from 'node:child_process'
 import { existsSync, readFileSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { assigneesByRepo } from './lib/assignees.mjs'
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const BUILD_ORDER = ['lms-package', 'lms-be', 'ops-fe', 'lms-fe']
@@ -56,7 +57,11 @@ for (const c of changes) {
   console.log(`${c.name}  [${c.phase}]  ${c.tasksCompleted}/${c.tasksTotal} tasks  ${note}`.trimEnd())
   const rows = [...repos].sort(([a], [b]) => rank(a) - rank(b) || a.localeCompare(b))
   if (!rows.length) console.log('  (tasks.md has no [<repo>] groups)')
-  for (const [repo, p] of rows) console.log(`  - ${repo.padEnd(14)} ${p.done}/${p.total} tasks`)
+  const who = assigneesByRepo(c.name) // from assignees.yaml, written by /comet-assign
+  for (const [repo, p] of rows) {
+    const names = who.get(repo) ?? []
+    console.log(`  - ${repo.padEnd(14)} ${p.done}/${p.total} tasks  ${repo === UNTAGGED ? '' : `→ ${names.length ? names.join(', ') : '(chưa giao)'}`}`.trimEnd())
+  }
   console.log('')
 }
 if (!shown) console.log(only ? `No active change touches ${only}.` : 'No active changes.')

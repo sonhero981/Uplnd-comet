@@ -1,0 +1,10 @@
+# Gợi ý người làm khi chạy /comet-assign. Chỉ để gợi ý: có thể gõ tên khác, không có gì kiểm tra tên ở đây.
+# Mỗi người ghi các repo họ thường phụ trách; /comet-assign đưa họ lên đầu khi hỏi giao repo đó.
+# Nguồn ban đầu: owner của từng repo trong E:\UP_BASE\upbase-specs\workspace.yaml. Thêm dev còn lại của team vào đây.
+people:
+  - name: Nguyễn Hùng Sơn
+    role: FE lead
+    repos: [lms-package, ops-fe, lms-fe]
+  - name: Đoàn Quang Cường
+    role: BE lead
+    repos: [lms-be]
