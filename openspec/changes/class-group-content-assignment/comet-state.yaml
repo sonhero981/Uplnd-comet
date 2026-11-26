@@ -1,0 +1,374 @@
+# comet-execution: managed-run
+change_id: 00d00fbd-0f54-4c63-a104-bcd9bd6836a1
+workflow: full
+language: en
+phase: design
+context_compression: off
+build_mode: null
+build_pause: null
+subagent_dispatch: null
+tdd_mode: null
+review_mode: standard
+isolation: current
+verify_mode: null
+auto_transition: false
+base_ref: 67c515dc2ae19abd102138b9c0ed8ae4dd1b847d
+design_doc: null
+plan: null
+verify_result: pending
+verify_failures: 0
+verification_report: null
+branch_status: pending
+created_at: 2026-11-17
+verified_at: null
+archive_confirmation: null
+archived: false
+bound_branch: comet/lms-f002-group
+direct_override: null
+handoff_context: null
+handoff_hash: null
+classic_profile: null
+classic_migration: null
+run_checkpoint:
+  schema: comet.workflow-run-checkpoint.v1
+  hash: 98569b212d08b97480a8bb28d2533064f618e39574845c6f9a85e17373e57961
+  run:
+    protocolVersion: 1
+    schemaVersion: 1
+    runId: class-group-content-assignment
+    revision: 1
+    workflow:
+      id: comet-classic-full
+      version: "1"
+      hash: ee198afdb53add0c23f98202aae8cdbe4079b9f4ebf7a62ed4ab8411ed591db5
+    definitionHashes:
+      '["comet-classic-full","1"]': ee198afdb53add0c23f98202aae8cdbe4079b9f4ebf7a62ed4ab8411ed591db5
+    initialStateHash: c9f6b488701ab3805db382f1c8e92c242afe9578015ec2f9d0a0de80c8c37092
+    input:
+      change: class-group-content-assignment
+      changeDir: openspec/changes/class-group-content-assignment
+      workspaceBaseline:
+        ref: 548d3881-2b11-44f8-bad3-a4278b301ddb
+    state:
+      archiveConfirmation: null
+      archived: false
+      autoTransition: false
+      baseRef: 67c515dc2ae19abd102138b9c0ed8ae4dd1b847d
+      boundBranch: comet/lms-f002-group
+      branchStatus: pending
+      buildMode: null
+      buildPause: null
+      checkEpoch: 1
+      classicMigration: null
+      classicProfile: null
+      contextCompression: off
+      createdAt: 2026-11-17
+      designDoc: null
+      directOverride: null
+      handoffContext: null
+      handoffHash: null
+      isolation: current
+      language: en
+      phase: design
+      plan: null
+      reviewMode: standard
+      subagentDispatch: null
+      tddMode: null
+      verificationReport: null
+      verifiedAt: null
+      verifyFailures: 0
+      verifyMode: null
+      verifyResult: pending
+      workflow: full
+    status: running
+    sequence: 5
+    actions:
+      - attempt: 1
+        claim:
+          executorId: comet-classic-guard
+          token: portable-0caaf70291bf5815ca3a8b18d7c463f7adffe30ef98800e037c2a85fcc2a0cbf
+        executionOrigin:
+          workflow:
+            hash: ee198afdb53add0c23f98202aae8cdbe4079b9f4ebf7a62ed4ab8411ed591db5
+            id: comet-classic-full
+            version: "1"
+        id: class-group-content-assignment:1
+        input:
+          input:
+            change: class-group-content-assignment
+            changeDir: openspec/changes/class-group-content-assignment
+            workspaceBaseline:
+              ref: 548d3881-2b11-44f8-bad3-a4278b301ddb
+          outputs: {}
+        inputHash: 949fe876fd4ff41dc826324b2e9fd4685a6c4b36c3f8f1ca8164455c3460107d
+        outcome:
+          actionId: class-group-content-assignment:1
+          attempt: 1
+          claimToken: portable-0caaf70291bf5815ca3a8b18d7c463f7adffe30ef98800e037c2a85fcc2a0cbf
+          inputHash: 949fe876fd4ff41dc826324b2e9fd4685a6c4b36c3f8f1ca8164455c3460107d
+          outcomeId: 2b5b0537-8b5c-49f5-95bc-ec3ea165da60
+          output:
+            event: open-complete
+          status: succeeded
+        protocolVersion: 1
+        receipts:
+          - hash: fb2f566b763f5defb5b95c9f44a31220e12122c82faf747148734d40c9df0e5a
+            outcomeId: 2b5b0537-8b5c-49f5-95bc-ec3ea165da60
+        reconciliations: []
+        ref: comet-open
+        requiredCapabilities: []
+        retry: manual
+        runId: class-group-content-assignment
+        status: succeeded
+        stepId: full.open
+        type: invoke_skill
+      - attempt: 1
+        claim:
+          executorId: comet-classic-open-revalidate
+          token: portable-e65326a77309239e2301479330dfeda84c207009e3c8078a5eb2372659b734fc
+        executionOrigin:
+          workflow:
+            hash: ee198afdb53add0c23f98202aae8cdbe4079b9f4ebf7a62ed4ab8411ed591db5
+            id: comet-classic-full
+            version: "1"
+        id: class-group-content-assignment:4
+        input:
+          input:
+            change: class-group-content-assignment
+            changeDir: openspec/changes/class-group-content-assignment
+            workspaceBaseline:
+              ref: 548d3881-2b11-44f8-bad3-a4278b301ddb
+          outputs:
+            full.open:
+              event: open-complete
+            full.open.confirm:
+              choice: approved
+              proposal:
+                input:
+                  change: class-group-content-assignment
+                  changeDir: openspec/changes/class-group-content-assignment
+                  workspaceBaseline:
+                    ref: 548d3881-2b11-44f8-bad3-a4278b301ddb
+                outputs:
+                  full.open:
+                    event: open-complete
+                  full.open.evidence:
+                    contentHash: 2ed91b2db2f0e96fda5cef16144284f6f9a5e0a511f028b59d20b6ab1eeef963
+                    ref: openspec/changes/class-group-content-assignment
+            full.open.evidence:
+              contentHash: 2ed91b2db2f0e96fda5cef16144284f6f9a5e0a511f028b59d20b6ab1eeef963
+              ref: openspec/changes/class-group-content-assignment
+        inputHash: 010bc33dd3a7820459968eb3555c92269d4253f9736921a313e58b8344e22355
+        outcome:
+          actionId: class-group-content-assignment:4
+          attempt: 1
+          claimToken: portable-e65326a77309239e2301479330dfeda84c207009e3c8078a5eb2372659b734fc
+          inputHash: 010bc33dd3a7820459968eb3555c92269d4253f9736921a313e58b8344e22355
+          outcomeId: class-group-content-assignment:4:1:executor-result
+          output:
+            contentHash: 2ed91b2db2f0e96fda5cef16144284f6f9a5e0a511f028b59d20b6ab1eeef963
+          status: succeeded
+        protocolVersion: 1
+        receipts:
+          - hash: eebb5bd51e0e6258a7b2499f42b2c7a639cf1e5e360945c47bb58e6a49892b86
+            outcomeId: class-group-content-assignment:4:1:executor-result
+        reconciliations: []
+        ref: classic-open-revalidate
+        requiredCapabilities: []
+        retry: manual
+        runId: class-group-content-assignment
+        status: succeeded
+        stepId: full.open.revalidate
+        type: call_tool
+      - attempt: 1
+        id: class-group-content-assignment:5
+        input:
+          input:
+            change: class-group-content-assignment
+            changeDir: openspec/changes/class-group-content-assignment
+            workspaceBaseline:
+              ref: 548d3881-2b11-44f8-bad3-a4278b301ddb
+          outputs:
+            full.open:
+              event: open-complete
+            full.open.confirm:
+              choice: approved
+              proposal:
+                input:
+                  change: class-group-content-assignment
+                  changeDir: openspec/changes/class-group-content-assignment
+                  workspaceBaseline:
+                    ref: 548d3881-2b11-44f8-bad3-a4278b301ddb
+                outputs:
+                  full.open:
+                    event: open-complete
+                  full.open.evidence:
+                    contentHash: 2ed91b2db2f0e96fda5cef16144284f6f9a5e0a511f028b59d20b6ab1eeef963
+                    ref: openspec/changes/class-group-content-assignment
+            full.open.evidence:
+              contentHash: 2ed91b2db2f0e96fda5cef16144284f6f9a5e0a511f028b59d20b6ab1eeef963
+              ref: openspec/changes/class-group-content-assignment
+            full.open.revalidate:
+              contentHash: 2ed91b2db2f0e96fda5cef16144284f6f9a5e0a511f028b59d20b6ab1eeef963
+        inputHash: 4bbcb47734df594cdfdb657de184e134ed8622fc55bf1b3e65efc4029477c224
+        protocolVersion: 1
+        receipts: []
+        reconciliations: []
+        ref: comet-design
+        requiredCapabilities: []
+        retry: manual
+        runId: class-group-content-assignment
+        status: pending
+        stepId: full.design.handoff
+        type: invoke_skill
+    actionContexts:
+      class-group-content-assignment:1:
+        results: {}
+        sequence: 1
+      class-group-content-assignment:4:
+        results:
+          full.open:
+            sequence: 1
+            value:
+              event: open-complete
+          full.open.confirm:
+            sequence: 3
+            value:
+              choice: approved
+              proposal:
+                input:
+                  change: class-group-content-assignment
+                  changeDir: openspec/changes/class-group-content-assignment
+                  workspaceBaseline:
+                    ref: 548d3881-2b11-44f8-bad3-a4278b301ddb
+                outputs:
+                  full.open:
+                    event: open-complete
+                  full.open.evidence:
+                    contentHash: 2ed91b2db2f0e96fda5cef16144284f6f9a5e0a511f028b59d20b6ab1eeef963
+                    ref: openspec/changes/class-group-content-assignment
+          full.open.evidence:
+            sequence: 2
+            value:
+              contentHash: 2ed91b2db2f0e96fda5cef16144284f6f9a5e0a511f028b59d20b6ab1eeef963
+              ref: openspec/changes/class-group-content-assignment
+        sequence: 4
+      class-group-content-assignment:5:
+        results:
+          full.open:
+            sequence: 1
+            value:
+              event: open-complete
+          full.open.confirm:
+            sequence: 3
+            value:
+              choice: approved
+              proposal:
+                input:
+                  change: class-group-content-assignment
+                  changeDir: openspec/changes/class-group-content-assignment
+                  workspaceBaseline:
+                    ref: 548d3881-2b11-44f8-bad3-a4278b301ddb
+                outputs:
+                  full.open:
+                    event: open-complete
+                  full.open.evidence:
+                    contentHash: 2ed91b2db2f0e96fda5cef16144284f6f9a5e0a511f028b59d20b6ab1eeef963
+                    ref: openspec/changes/class-group-content-assignment
+          full.open.evidence:
+            sequence: 2
+            value:
+              contentHash: 2ed91b2db2f0e96fda5cef16144284f6f9a5e0a511f028b59d20b6ab1eeef963
+              ref: openspec/changes/class-group-content-assignment
+          full.open.revalidate:
+            sequence: 4
+            value:
+              contentHash: 2ed91b2db2f0e96fda5cef16144284f6f9a5e0a511f028b59d20b6ab1eeef963
+        sequence: 5
+    waits:
+      - id: class-group-content-assignment:3
+        stepId: full.open.confirm
+        sequence: 3
+        status: resolved
+        proposal:
+          input:
+            change: class-group-content-assignment
+            changeDir: openspec/changes/class-group-content-assignment
+            workspaceBaseline:
+              ref: 548d3881-2b11-44f8-bad3-a4278b301ddb
+          outputs:
+            full.open:
+              event: open-complete
+            full.open.evidence:
+              contentHash: 2ed91b2db2f0e96fda5cef16144284f6f9a5e0a511f028b59d20b6ab1eeef963
+              ref: openspec/changes/class-group-content-assignment
+        proposalHash: 8d3ea05a3d30f4cfac3956034d915facfb0c2a987ba343f12b90e0beb191b5b9
+        choices:
+          - approved
+          - rejected
+        results:
+          full.open:
+            sequence: 1
+            value:
+              event: open-complete
+          full.open.evidence:
+            sequence: 2
+            value:
+              contentHash: 2ed91b2db2f0e96fda5cef16144284f6f9a5e0a511f028b59d20b6ab1eeef963
+              ref: openspec/changes/class-group-content-assignment
+        decision:
+          id: classic-open-2ed91b2db2f0e96fda5cef16144284f6f9a5e0a511f028b59d20b6ab1eeef963
+          choice: approved
+          proposalHash: 8d3ea05a3d30f4cfac3956034d915facfb0c2a987ba343f12b90e0beb191b5b9
+    evidenceWaits:
+      - id: class-group-content-assignment:2
+        stepId: full.open.evidence
+        sequence: 2
+        kind: classic-open-artifacts
+        status: resolved
+        results:
+          full.open:
+            sequence: 1
+            value:
+              event: open-complete
+        receipt:
+          ref: openspec/changes/class-group-content-assignment
+          contentHash: 2ed91b2db2f0e96fda5cef16144284f6f9a5e0a511f028b59d20b6ab1eeef963
+          submissionId: ceaed1e0-41f3-4e7f-b447-609544e9c3b9
+    ready: []
+    joins: {}
+    outputs:
+      full.open:
+        sequence: 1
+        value:
+          event: open-complete
+      full.open.confirm:
+        sequence: 3
+        value:
+          choice: approved
+          proposal:
+            input:
+              change: class-group-content-assignment
+              changeDir: openspec/changes/class-group-content-assignment
+              workspaceBaseline:
+                ref: 548d3881-2b11-44f8-bad3-a4278b301ddb
+            outputs:
+              full.open:
+                event: open-complete
+              full.open.evidence:
+                contentHash: 2ed91b2db2f0e96fda5cef16144284f6f9a5e0a511f028b59d20b6ab1eeef963
+                ref: openspec/changes/class-group-content-assignment
+      full.open.evidence:
+        sequence: 2
+        value:
+          contentHash: 2ed91b2db2f0e96fda5cef16144284f6f9a5e0a511f028b59d20b6ab1eeef963
+          ref: openspec/changes/class-group-content-assignment
+      full.open.revalidate:
+        sequence: 4
+        value:
+          contentHash: 2ed91b2db2f0e96fda5cef16144284f6f9a5e0a511f028b59d20b6ab1eeef963
+    children: []
+    lineage: []
+  sourceRevision: 7
+  sourceHash: b6644489df779f43f94eaa928f7cc81daa18291c740a0edf8a5ff9ebf4308611
+check_epoch: 1

@@ -1,0 +1,374 @@
+# comet-execution: managed-run
+change_id: 127f8b89-054c-4a8a-b205-163e1679f6bd
+workflow: full
+language: en
+phase: design
+context_compression: off
+build_mode: null
+build_pause: null
+subagent_dispatch: null
+tdd_mode: null
+review_mode: standard
+isolation: current
+verify_mode: null
+auto_transition: false
+base_ref: 67c515dc2ae19abd102138b9c0ed8ae4dd1b847d
+design_doc: null
+plan: null
+verify_result: pending
+verify_failures: 0
+verification_report: null
+branch_status: pending
+created_at: 2026-11-17
+verified_at: null
+archive_confirmation: null
+archived: false
+bound_branch: comet/lms-f002-group
+direct_override: null
+handoff_context: null
+handoff_hash: null
+classic_profile: null
+classic_migration: null
+run_checkpoint:
+  schema: comet.workflow-run-checkpoint.v1
+  hash: 46b081058b95bd8428f15c81c15632fe4f562bfad0855751c10708712f84b164
+  run:
+    protocolVersion: 1
+    schemaVersion: 1
+    runId: user-account-group-hr-sync
+    revision: 1
+    workflow:
+      id: comet-classic-full
+      version: "1"
+      hash: ee198afdb53add0c23f98202aae8cdbe4079b9f4ebf7a62ed4ab8411ed591db5
+    definitionHashes:
+      '["comet-classic-full","1"]': ee198afdb53add0c23f98202aae8cdbe4079b9f4ebf7a62ed4ab8411ed591db5
+    initialStateHash: c9f6b488701ab3805db382f1c8e92c242afe9578015ec2f9d0a0de80c8c37092
+    input:
+      change: user-account-group-hr-sync
+      changeDir: openspec/changes/user-account-group-hr-sync
+      workspaceBaseline:
+        ref: 3acaaef2-0619-4fbd-88a4-b1a4f7408f84
+    state:
+      archiveConfirmation: null
+      archived: false
+      autoTransition: false
+      baseRef: 67c515dc2ae19abd102138b9c0ed8ae4dd1b847d
+      boundBranch: comet/lms-f002-group
+      branchStatus: pending
+      buildMode: null
+      buildPause: null
+      checkEpoch: 1
+      classicMigration: null
+      classicProfile: null
+      contextCompression: off
+      createdAt: 2026-11-17
+      designDoc: null
+      directOverride: null
+      handoffContext: null
+      handoffHash: null
+      isolation: current
+      language: en
+      phase: design
+      plan: null
+      reviewMode: standard
+      subagentDispatch: null
+      tddMode: null
+      verificationReport: null
+      verifiedAt: null
+      verifyFailures: 0
+      verifyMode: null
+      verifyResult: pending
+      workflow: full
+    status: running
+    sequence: 5
+    actions:
+      - attempt: 1
+        claim:
+          executorId: comet-classic-guard
+          token: portable-c8070dc99498d9109e76e2342997e4da189c669ca94550cbcd12c0cf1cc17939
+        executionOrigin:
+          workflow:
+            hash: ee198afdb53add0c23f98202aae8cdbe4079b9f4ebf7a62ed4ab8411ed591db5
+            id: comet-classic-full
+            version: "1"
+        id: user-account-group-hr-sync:1
+        input:
+          input:
+            change: user-account-group-hr-sync
+            changeDir: openspec/changes/user-account-group-hr-sync
+            workspaceBaseline:
+              ref: 3acaaef2-0619-4fbd-88a4-b1a4f7408f84
+          outputs: {}
+        inputHash: 2d9b2bd0694aac3c3d2aa08b0a0c618d1b14aee921194cccfadb805c8409d089
+        outcome:
+          actionId: user-account-group-hr-sync:1
+          attempt: 1
+          claimToken: portable-c8070dc99498d9109e76e2342997e4da189c669ca94550cbcd12c0cf1cc17939
+          inputHash: 2d9b2bd0694aac3c3d2aa08b0a0c618d1b14aee921194cccfadb805c8409d089
+          outcomeId: 22e4c8c2-22ba-4b74-8d0d-085241995ebf
+          output:
+            event: open-complete
+          status: succeeded
+        protocolVersion: 1
+        receipts:
+          - hash: 0eca416054fd341aa8a02184fe2d8559974e8f20a39035fc7eb81e64f481f855
+            outcomeId: 22e4c8c2-22ba-4b74-8d0d-085241995ebf
+        reconciliations: []
+        ref: comet-open
+        requiredCapabilities: []
+        retry: manual
+        runId: user-account-group-hr-sync
+        status: succeeded
+        stepId: full.open
+        type: invoke_skill
+      - attempt: 1
+        claim:
+          executorId: comet-classic-open-revalidate
+          token: portable-a029fb0c9fbf0f947615c363cf418ea8cfca515c123abd749de0ea2b9bcf91a1
+        executionOrigin:
+          workflow:
+            hash: ee198afdb53add0c23f98202aae8cdbe4079b9f4ebf7a62ed4ab8411ed591db5
+            id: comet-classic-full
+            version: "1"
+        id: user-account-group-hr-sync:4
+        input:
+          input:
+            change: user-account-group-hr-sync
+            changeDir: openspec/changes/user-account-group-hr-sync
+            workspaceBaseline:
+              ref: 3acaaef2-0619-4fbd-88a4-b1a4f7408f84
+          outputs:
+            full.open:
+              event: open-complete
+            full.open.confirm:
+              choice: approved
+              proposal:
+                input:
+                  change: user-account-group-hr-sync
+                  changeDir: openspec/changes/user-account-group-hr-sync
+                  workspaceBaseline:
+                    ref: 3acaaef2-0619-4fbd-88a4-b1a4f7408f84
+                outputs:
+                  full.open:
+                    event: open-complete
+                  full.open.evidence:
+                    contentHash: 0fc3b239ad1c0060b57054fc842f5ab9903390f6124079f6c287aec520c242bb
+                    ref: openspec/changes/user-account-group-hr-sync
+            full.open.evidence:
+              contentHash: 0fc3b239ad1c0060b57054fc842f5ab9903390f6124079f6c287aec520c242bb
+              ref: openspec/changes/user-account-group-hr-sync
+        inputHash: cb39968b00f9d286ff4adaa8045636f84f3894c02e884bdb59f79b0025800e66
+        outcome:
+          actionId: user-account-group-hr-sync:4
+          attempt: 1
+          claimToken: portable-a029fb0c9fbf0f947615c363cf418ea8cfca515c123abd749de0ea2b9bcf91a1
+          inputHash: cb39968b00f9d286ff4adaa8045636f84f3894c02e884bdb59f79b0025800e66
+          outcomeId: user-account-group-hr-sync:4:1:executor-result
+          output:
+            contentHash: 0fc3b239ad1c0060b57054fc842f5ab9903390f6124079f6c287aec520c242bb
+          status: succeeded
+        protocolVersion: 1
+        receipts:
+          - hash: dd0dd3b2488ce1a9ad468613fe72a21763746c42b68fb166be8d08ce1e92c9af
+            outcomeId: user-account-group-hr-sync:4:1:executor-result
+        reconciliations: []
+        ref: classic-open-revalidate
+        requiredCapabilities: []
+        retry: manual
+        runId: user-account-group-hr-sync
+        status: succeeded
+        stepId: full.open.revalidate
+        type: call_tool
+      - attempt: 1
+        id: user-account-group-hr-sync:5
+        input:
+          input:
+            change: user-account-group-hr-sync
+            changeDir: openspec/changes/user-account-group-hr-sync
+            workspaceBaseline:
+              ref: 3acaaef2-0619-4fbd-88a4-b1a4f7408f84
+          outputs:
+            full.open:
+              event: open-complete
+            full.open.confirm:
+              choice: approved
+              proposal:
+                input:
+                  change: user-account-group-hr-sync
+                  changeDir: openspec/changes/user-account-group-hr-sync
+                  workspaceBaseline:
+                    ref: 3acaaef2-0619-4fbd-88a4-b1a4f7408f84
+                outputs:
+                  full.open:
+                    event: open-complete
+                  full.open.evidence:
+                    contentHash: 0fc3b239ad1c0060b57054fc842f5ab9903390f6124079f6c287aec520c242bb
+                    ref: openspec/changes/user-account-group-hr-sync
+            full.open.evidence:
+              contentHash: 0fc3b239ad1c0060b57054fc842f5ab9903390f6124079f6c287aec520c242bb
+              ref: openspec/changes/user-account-group-hr-sync
+            full.open.revalidate:
+              contentHash: 0fc3b239ad1c0060b57054fc842f5ab9903390f6124079f6c287aec520c242bb
+        inputHash: 6fa504db1cf2fa94a9b378d6e51d27699459005843617017f64b0605b2a66966
+        protocolVersion: 1
+        receipts: []
+        reconciliations: []
+        ref: comet-design
+        requiredCapabilities: []
+        retry: manual
+        runId: user-account-group-hr-sync
+        status: pending
+        stepId: full.design.handoff
+        type: invoke_skill
+    actionContexts:
+      user-account-group-hr-sync:1:
+        results: {}
+        sequence: 1
+      user-account-group-hr-sync:4:
+        results:
+          full.open:
+            sequence: 1
+            value:
+              event: open-complete
+          full.open.confirm:
+            sequence: 3
+            value:
+              choice: approved
+              proposal:
+                input:
+                  change: user-account-group-hr-sync
+                  changeDir: openspec/changes/user-account-group-hr-sync
+                  workspaceBaseline:
+                    ref: 3acaaef2-0619-4fbd-88a4-b1a4f7408f84
+                outputs:
+                  full.open:
+                    event: open-complete
+                  full.open.evidence:
+                    contentHash: 0fc3b239ad1c0060b57054fc842f5ab9903390f6124079f6c287aec520c242bb
+                    ref: openspec/changes/user-account-group-hr-sync
+          full.open.evidence:
+            sequence: 2
+            value:
+              contentHash: 0fc3b239ad1c0060b57054fc842f5ab9903390f6124079f6c287aec520c242bb
+              ref: openspec/changes/user-account-group-hr-sync
+        sequence: 4
+      user-account-group-hr-sync:5:
+        results:
+          full.open:
+            sequence: 1
+            value:
+              event: open-complete
+          full.open.confirm:
+            sequence: 3
+            value:
+              choice: approved
+              proposal:
+                input:
+                  change: user-account-group-hr-sync
+                  changeDir: openspec/changes/user-account-group-hr-sync
+                  workspaceBaseline:
+                    ref: 3acaaef2-0619-4fbd-88a4-b1a4f7408f84
+                outputs:
+                  full.open:
+                    event: open-complete
+                  full.open.evidence:
+                    contentHash: 0fc3b239ad1c0060b57054fc842f5ab9903390f6124079f6c287aec520c242bb
+                    ref: openspec/changes/user-account-group-hr-sync
+          full.open.evidence:
+            sequence: 2
+            value:
+              contentHash: 0fc3b239ad1c0060b57054fc842f5ab9903390f6124079f6c287aec520c242bb
+              ref: openspec/changes/user-account-group-hr-sync
+          full.open.revalidate:
+            sequence: 4
+            value:
+              contentHash: 0fc3b239ad1c0060b57054fc842f5ab9903390f6124079f6c287aec520c242bb
+        sequence: 5
+    waits:
+      - id: user-account-group-hr-sync:3
+        stepId: full.open.confirm
+        sequence: 3
+        status: resolved
+        proposal:
+          input:
+            change: user-account-group-hr-sync
+            changeDir: openspec/changes/user-account-group-hr-sync
+            workspaceBaseline:
+              ref: 3acaaef2-0619-4fbd-88a4-b1a4f7408f84
+          outputs:
+            full.open:
+              event: open-complete
+            full.open.evidence:
+              contentHash: 0fc3b239ad1c0060b57054fc842f5ab9903390f6124079f6c287aec520c242bb
+              ref: openspec/changes/user-account-group-hr-sync
+        proposalHash: 5a47f62fab5dd407fea9caf731ccea4b5ce1b9e02662e36bf97f0b74c34b56cd
+        choices:
+          - approved
+          - rejected
+        results:
+          full.open:
+            sequence: 1
+            value:
+              event: open-complete
+          full.open.evidence:
+            sequence: 2
+            value:
+              contentHash: 0fc3b239ad1c0060b57054fc842f5ab9903390f6124079f6c287aec520c242bb
+              ref: openspec/changes/user-account-group-hr-sync
+        decision:
+          id: classic-open-0fc3b239ad1c0060b57054fc842f5ab9903390f6124079f6c287aec520c242bb
+          choice: approved
+          proposalHash: 5a47f62fab5dd407fea9caf731ccea4b5ce1b9e02662e36bf97f0b74c34b56cd
+    evidenceWaits:
+      - id: user-account-group-hr-sync:2
+        stepId: full.open.evidence
+        sequence: 2
+        kind: classic-open-artifacts
+        status: resolved
+        results:
+          full.open:
+            sequence: 1
+            value:
+              event: open-complete
+        receipt:
+          ref: openspec/changes/user-account-group-hr-sync
+          contentHash: 0fc3b239ad1c0060b57054fc842f5ab9903390f6124079f6c287aec520c242bb
+          submissionId: 2ea09fbe-b5c6-4190-aa9b-fc250b46d9fa
+    ready: []
+    joins: {}
+    outputs:
+      full.open:
+        sequence: 1
+        value:
+          event: open-complete
+      full.open.confirm:
+        sequence: 3
+        value:
+          choice: approved
+          proposal:
+            input:
+              change: user-account-group-hr-sync
+              changeDir: openspec/changes/user-account-group-hr-sync
+              workspaceBaseline:
+                ref: 3acaaef2-0619-4fbd-88a4-b1a4f7408f84
+            outputs:
+              full.open:
+                event: open-complete
+              full.open.evidence:
+                contentHash: 0fc3b239ad1c0060b57054fc842f5ab9903390f6124079f6c287aec520c242bb
+                ref: openspec/changes/user-account-group-hr-sync
+      full.open.evidence:
+        sequence: 2
+        value:
+          contentHash: 0fc3b239ad1c0060b57054fc842f5ab9903390f6124079f6c287aec520c242bb
+          ref: openspec/changes/user-account-group-hr-sync
+      full.open.revalidate:
+        sequence: 4
+        value:
+          contentHash: 0fc3b239ad1c0060b57054fc842f5ab9903390f6124079f6c287aec520c242bb
+    children: []
+    lineage: []
+  sourceRevision: 7
+  sourceHash: 713a2e4ae73c33528157a67ba465e47e4529547abbe2ec95162a4df0d36719f0
+check_epoch: 1

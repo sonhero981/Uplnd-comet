@@ -1,0 +1,5 @@
+# Người làm của change. Ghi bởi scripts/assignees.mjs (/comet-assign); không sửa tay trừ khi cần.
+groups:  # ghi đè cho một nhóm, theo số N của `## N.`
+  "1": "Lê Hoàng Việt, Đoàn Quang Cường"
+  "2": "Đoàn Quang Cường"
+  "3": "Nguyễn Hùng Sơn"

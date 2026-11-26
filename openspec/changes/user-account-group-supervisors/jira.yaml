@@ -1,0 +1,13 @@
+# Liên kết Jira của change. Ghi bởi scripts/jira-link.mjs (/comet-jira); chỉ là tham chiếu, trạng thái và người làm nằm ở Jira.
+stories:  # story Jira mà change này phủ
+  - UPLND-410
+  - UPLND-411
+  - UPLND-412
+  - UPLND-413
+groups:  # nhóm `## N.` của tasks.md -> sub-task Jira
+  "1": [UPLND-479, UPLND-480, UPLND-481, UPLND-484]
+  "2": [UPLND-482, UPLND-483]
+  "3": [UPLND-478, UPLND-485, UPLND-486, UPLND-487]
+  "4": [UPLND-431, UPLND-432, UPLND-433]
+  "5": [UPLND-434, UPLND-496]
+  "6": [UPLND-495]
