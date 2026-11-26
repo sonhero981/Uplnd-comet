@@ -60,7 +60,7 @@ Then **load the `comet-open` skill with the Skill tool**, passing:
 - the changes that PRD already has (names and phases), so scope is not duplicated;
 - "put the line `PRD: <code>` right after the title of proposal.md";
 - "name the change `<module>-<name>` with no repo in it, group tasks as `## N. [<repo>] …`, write artifacts in Vietnamese; all as in CLAUDE.md";
-- "when the artifacts are written, before you tell the user to run `/comet-design`, load the `comet-assign` skill with the Skill tool for this change, so the user says who takes each repo".
+- "when the artifacts are written, before you tell the user to run `/comet-design`, load the `comet-jira` skill with the Skill tool for this change, so its Jira stories and sub-tasks are recorded; it hands over to `comet-next`, which offers `comet-assign` for whatever is still unassigned".
 
 **Hotfix / Chỉnh nhẹ.** Load `comet-hotfix` or `comet-tweak` with the Skill tool, passing the user's description if there is one. If the fix belongs to a PRD, the user may say so; then it gets the same `PRD:` line.
 

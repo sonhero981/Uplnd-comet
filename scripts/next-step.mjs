@@ -11,6 +11,7 @@ import { execSync } from 'node:child_process'
 import { existsSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 import { ROOT, assigneesByRepo, changeDir, changeExists, readGroups, validChangeName } from './lib/assignees.mjs'
+import { readJira } from './lib/jira.mjs'
 
 const fail = (message) => { console.log(JSON.stringify({ error: message })); process.exit(2) }
 const comet = (args) => {
@@ -55,6 +56,8 @@ const kind = token === 'done' || token === 'delivery' ? token
   : 'unknown'
 
 const who = assigneesByRepo(change)
+const jira = readJira(change) // jira.yaml: stories and group -> sub-task links, written by /comet-jira
+const groups = readGroups(change)
 console.log(JSON.stringify({
   change,
   phase: data.phase ?? null,
@@ -63,4 +66,5 @@ console.log(JSON.stringify({
   tasks: data.taskState ? { done: data.taskState.completed, total: data.taskState.total } : null,
   repos: repoList(change),
   unassigned: [...who].filter(([, names]) => !names.length).map(([repo]) => repo),
+  jira: { stories: jira.stories.length, groupsWithoutSubtask: groups.filter(g => !(jira.groups[String(g.n)] ?? []).length).length },
 }, null, 2))

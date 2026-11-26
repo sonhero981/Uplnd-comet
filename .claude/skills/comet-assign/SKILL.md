@@ -25,7 +25,7 @@ node scripts/assignees.mjs team
 
 ## 3. Ask repo by repo
 
-Ask once per **repo** that has groups, in build order (`lms-package`, `lms-be`, `ops-fe`, `lms-fe`), not once per group: a repo often has several groups for the same person. For each repo use `AskUserQuestion`:
+Ask once per **repo** that has groups, in build order (`lms-package`, `lms-be`, `ops-fe`, `lms-fe`), not once per group: a repo often has several groups for the same person. `/comet-jira` may already have filled assignees from Jira sub-tasks; for a repo whose groups all have an assignee, show it and ask only "giữ nguyên hay đổi?", and never overwrite a Jira-derived assignee without the user saying so. For each repo use `AskUserQuestion`:
 
 - Question: "Repo `<repo>` (N nhóm, M task) giao cho ai?"
 - Options, in this order and at most 4:

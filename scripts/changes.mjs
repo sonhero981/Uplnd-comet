@@ -9,6 +9,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { assigneesByRepo } from './lib/assignees.mjs'
+import { readJira } from './lib/jira.mjs'
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const BUILD_ORDER = ['lms-package', 'lms-be', 'ops-fe', 'lms-fe']
@@ -55,6 +56,8 @@ for (const c of changes) {
   shown++
   const note = c.nextCommand ? `next: ${c.nextCommand}` : c.error ? `error: ${c.error.slice(0, 80)}` : ''
   console.log(`${c.name}  [${c.phase}]  ${c.tasksCompleted}/${c.tasksTotal} tasks  ${note}`.trimEnd())
+  const stories = readJira(c.name).stories // from jira.yaml, written by /comet-jira
+  if (stories.length) console.log(`  Jira: ${stories.join(', ')}`)
   const rows = [...repos].sort(([a], [b]) => rank(a) - rank(b) || a.localeCompare(b))
   if (!rows.length) console.log('  (tasks.md has no [<repo>] groups)')
   const who = assigneesByRepo(c.name) // from assignees.yaml, written by /comet-assign

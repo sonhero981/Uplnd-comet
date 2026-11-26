@@ -35,10 +35,13 @@ One question, "Tiếp theo làm gì?", with the change name, phase and task prog
    | anything else | Tiếp tục (`/<skill>`) |
 
    Mark it "(Recommended)". The description says what the phase does in one sentence and, for `comet-build`, the build order of `repos`.
-2. **Giao việc cho từng repo** (`/comet-assign`), only when `unassigned` is not empty; the description names those repos.
-3. **Cập nhật codekb sau change này** (`/comet-codekb refresh <change>`), only when the change is archived or `next.kind` is `done` or `delivery`, and `repos` is not empty.
-4. **Về menu `/comet-start`**, when the change is archived or done, or when nothing is open.
-5. **Dừng ở đây**, always last.
+2. **Đồng bộ với Jira** (`/comet-jira`), only when the change is not archived and `jira.stories` is 0 or `jira.groupsWithoutSubtask` is above 0; the description says how many groups still have no Jira sub-task.
+3. **Giao việc cho từng repo** (`/comet-assign`), only when `unassigned` is not empty; the description names those repos.
+4. **Cập nhật codekb sau change này** (`/comet-codekb refresh <change>`), only when the change is archived or `next.kind` is `done` or `delivery`, and `repos` is not empty.
+5. **Về menu `/comet-start`**, when the change is archived or done, or when nothing is open.
+6. **Dừng ở đây**, always last.
+
+That is more than 4 candidates, but they never all apply at once. When more than 4 would show, drop the lowest in this order: menu, codekb, giao việc.
 
 `next.kind` is `wait` (Comet is waiting for its own earlier task) or `unknown`: say so in one line and offer **Làm tiếp change (`comet-classic`)** in place of option 1, because that skill finds and resumes the right phase itself.
 
@@ -49,6 +52,7 @@ If `AskUserQuestion` is not available, print the same options as a numbered list
 Load the chosen skill with the Skill tool, passing the change name:
 
 - the next step: load `next.skill`, "Resume change `<change>`";
+- đồng bộ Jira: load `comet-jira` for the change;
 - giao việc: load `comet-assign` for the change;
 - codekb: load `comet-codekb` with "refresh `<change>`";
 - menu: load `comet-start`;
